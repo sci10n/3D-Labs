@@ -1,99 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Three.js Planetary system</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	</head>
-	<body>
+  <head>
+    <title>Three.js Planetary system</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  </head>
+  <body>
 
-		<div id="container"></div>
+    <div id="container"></div>
 
-		<!-- <script src="three.min.js"></script> -->
-		<script src="three.js"></script>
-		<script>
-			// Lots of global variables. (This is JavaScript. No use complaining.)
-			var container;
-			var camera, scene, renderer;
-			
-			var mouseX = 0, mouseY = 0;
+    <!-- <script src="three.min.js"></script> -->
+    <script src="three.js"></script>
+    <script>
+      // Lots of global variables. (This is JavaScript. No use complaining.)
+      var container;
+      var camera, scene, renderer;
+      
+      var mouseX = 0, mouseY = 0;
 
-			var windowHalfX = window.innerWidth / 2;
-			var windowHalfY = window.innerHeight / 2;			
-			
-			// Object3D ("Group") nodes and Mesh nodes
-			var sceneRoot = new THREE.Group();
-			var objectSpin = new THREE.Group();
-			var objectMesh;
+      var windowHalfX = window.innerWidth / 2;
+      var windowHalfY = window.innerHeight / 2;			
 
-			
-			function onWindowResize() {
-				windowHalfX = window.innerWidth / 2;
-				windowHalfY = window.innerHeight / 2;
+      var clock = new THREE.Clock();
+      var timeDelta;
+      
+      // Object3D ("Group") nodes and Mesh nodes
+      var sceneRoot = new THREE.Group();
+      var sunSpin = new THREE.Group();
+      var earthOrbit = new THREE.Group();
+      var earthTranslation = new THREE.Group();
+      var earthSpin = new THREE.Group();
+      var moonOrbit = new THREE.Group();
+      var moonTranslation = new THREE.Group();
+      var moonSpin = new THREE.Group();
+      
+      var sunMesh;
+      var earthMesh;
+      var moonMesh;
 
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
+      
+      function onWindowResize() {
+      windowHalfX = window.innerWidth / 2;
+      windowHalfY = window.innerHeight / 2;
 
-				renderer.setSize( window.innerWidth, window.innerHeight );
-			}
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
 
-			
-			function init() {
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      }
 
-				container = document.getElementById( 'container' );
+      
+      function init() {
 
-				camera = new THREE.PerspectiveCamera( 60, window.innerWidth/window.innerHeight, 0.1, 100 );
-				camera.position.z = 10;
+      container = document.getElementById( 'container' );
 
-				scene = new THREE.Scene();
-								
-				// Mesh
-				var geometryBox = new THREE.BoxGeometry( 2, 2, 2 );
-				var materialBox = new THREE.MeshBasicMaterial();
-				materialBox.wireframe = true;
-				objectMesh = new THREE.Mesh( geometryBox, materialBox );
+      camera = new THREE.PerspectiveCamera( 60, window.innerWidth/window.innerHeight, 0.1, 100 );
+      camera.position.z = 15;
 
-				// Top-level node
-				scene.add( sceneRoot );
+      scene = new THREE.Scene();
+      clock.start();
+      
+      // Mesh
+      var sunGeometry = new THREE.SphereGeometry( 1 , 32, 32);
+      var earthGeometry = new THREE.SphereGeometry( 0.5 ,32 ,32);
+      var moonGeometry = new THREE.SphereGeometry( 0.25,32,32 );
 
-				// Sun branch
-				sceneRoot.add( objectSpin );
-				objectSpin.add( objectMesh );
+      // Material
+	  var sunTexture = new THREE.TextureLoader().load("sun.png");//https://raw.githubusercontent.com/sci10n/Graphics/master/lab6/sun.png");
+	  var moonTexture = new THREE.TextureLoader().load("moon.png");//https://raw.githubusercontent.com/sci10n/Graphics/master/lab6/moon.png");
+	  var earthTexture = new THREE.TextureLoader().load("earth.png"); //https://raw.githubusercontent.com/sci10n/Graphics/master/lab6/earth.png");
+      var sunMaterial = new THREE.MeshBasicMaterial({map: sunTexture});
+      var moonMaterial = new THREE.MeshBasicMaterial({map: moonTexture});
+      var earthMaterial = new THREE.MeshBasicMaterial({map: earthTexture});
 
-				renderer = new THREE.WebGLRenderer();
-				renderer.setClearColor( 0x000000 );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				container.appendChild( renderer.domElement );
+      //var loader = new THREE.TextureLoader();
+      //loader.load("https://raw.githubusercontent.com/sci10n/Graphics/master/lab6/sun.png",
+      //function ( texture ) { sunMaterial = new THREE.MeshBasicMaterial({map: texture}); },
+      //function( xhr ){console.log( "HEJ" );},
+      //function (xhr ){console.log( "HEJ" );});
 
-				window.addEventListener( 'resize', onWindowResize, false );
-			}
+      //loader.load("https://raw.githubusercontent.com/sci10n/Graphics/master/lab6/moon.png",
+      //function ( texture ) { moonMaterial = new THREE.MeshBasicMaterial({map: texture}); },
+      //function( xhr ){},
+      //function (xhr ){});
 
-			
-			function render() {			
+      //loader.load("https://raw.githubusercontent.com/sci10n/Graphics/master/lab6/earth.png",
+      //function ( texture ) { earthMaterial = new THREE.MeshBasicMaterial({map: texture}); },
+      //function( xhr ){},
+      //function (xhr ){});
+          
 
-				// Set up the camera
-				camera.position.x = 0;
-				camera.position.y = -mouseY*10;
-				camera.lookAt( scene.position );
+      sunMesh = new THREE.Mesh( sunGeometry, sunMaterial );
+      earthMesh = new THREE.Mesh( earthGeometry, earthMaterial );
+      moonMesh =  new THREE.Mesh( moonGeometry, moonMaterial );
+      
+      // Top-level node
+      scene.add( sceneRoot );
 
-				// Perform animations
-				objectSpin.rotation.y += 0.02;
+      // Sun branch
+      sceneRoot.add( sunSpin );
+      sunSpin.add( sunMesh );
 
-				// Render the scene
-				renderer.render( scene, camera );
-			}
+      // Earth branch
+      
+      sceneRoot.add( earthOrbit );
+      earthOrbit.add( earthTranslation );
+      earthTranslation.add( earthSpin );
+      earthSpin.add( earthMesh );
+
+      // Moon branch
+      earthTranslation.add( moonOrbit );
+      moonOrbit.add( moonTranslation );
+      moonTranslation.add( moonSpin );
+      moonSpin.add ( moonMesh );
+      
+      
+      renderer = new THREE.WebGLRenderer();
+      renderer.setClearColor( 0x000000 );
+      renderer.setPixelRatio( window.devicePixelRatio );
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      container.appendChild( renderer.domElement );
+
+      window.addEventListener( 'resize', onWindowResize, false );
+      }
+
+      
+      function render() {			
+      timeDelta = clock.getDelta() * 1;
+     
+      // Set up the camera
+      camera.position.x = 0;
+      camera.position.y = 2 + -mouseY*10;
+      camera.lookAt( scene.position );
+
+      // Perform animations
+      sunSpin.rotation.y +=  (2 * Math.PI / 25) * timeDelta;
+      earthOrbit.rotation.y += (2 * Math.PI / 365) * timeDelta;
+      earthTranslation.position.z = 6;
+      earthSpin.rotation.y += (2 * Math.PI) / 1 * timeDelta;
+      moonOrbit.rotation.y += (2 * Math.PI / 27.3) * timeDelta ;
+      moonTranslation.position.z = 2.5;
+      moonSpin.rotation.y = Math.PI/2 ;
+      // Render the scene
+      renderer.render( scene, camera );
+      }
 
 
-			function animate() {
-				requestAnimationFrame( animate ); // Request to be called again for next frame
-				render();
-			}
+      function animate() {
+      requestAnimationFrame( animate ); // Request to be called again for next frame
 
-			
-			init();    // Set up the scene
-			animate(); // Enter an infinite loop
-			
-		</script>
-	</body>
+      render();
+      
+      }
+
+      
+      init();    // Set up the scene
+      animate(); // Enter an infinite loop
+      
+    </script>
+  </body>
 </html>

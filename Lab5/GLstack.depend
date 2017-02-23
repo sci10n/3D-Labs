@@ -76,3 +76,93 @@
 	<GL/glext.h>
 	"tnm061.hpp"
 
+1487857272 source:h:\documents\graphics\lab5\glstack.cpp
+	<cstdio>
+	<cstdlib>
+	<cmath>
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"tnm061.hpp"
+	"Shader.hpp"
+	"Texture.hpp"
+	"TriangleSoup.hpp"
+	"Rotator.hpp"
+	"MatrixStack.hpp"
+
+1487855497 h:\documents\graphics\lab5\glfw\glfw3.h
+	<stddef.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/glcorearb.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<GLES3/gl3.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1487855497 h:\documents\graphics\lab5\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1487855500 h:\documents\graphics\lab5\tnm061.hpp
+	<GL/glext.h>
+
+1487855498 h:\documents\graphics\lab5\shader.hpp
+	<GLFW/glfw3.h>
+	"tnm061.hpp"
+	<cstdio>
+
+1487855498 h:\documents\graphics\lab5\texture.hpp
+	<GLFW/glfw3.h>
+	<cstdio>
+	<cstring>
+	<GL/glext.h>
+	"tnm061.hpp"
+
+1487855498 h:\documents\graphics\lab5\trianglesoup.hpp
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"tnm061.hpp"
+
+1487855498 h:\documents\graphics\lab5\rotator.hpp
+	<GLFW/glfw3.h>
+	<cmath>
+
+1487855498 h:\documents\graphics\lab5\matrixstack.hpp
+	<cmath>
+	<cstdlib>
+	<cstdio>
+	<GLFW/glfw3.h>
+
+1487855497 source:h:\documents\graphics\lab5\matrixstack.cpp
+	"MatrixStack.hpp"
+
+1487855498 source:h:\documents\graphics\lab5\rotator.cpp
+	"Rotator.hpp"
+
+1487855498 source:h:\documents\graphics\lab5\shader.cpp
+	"Shader.hpp"
+
+1487855498 source:h:\documents\graphics\lab5\texture.cpp
+	"Texture.hpp"
+
+1487855500 source:h:\documents\graphics\lab5\tnm061.cpp
+	<stdio.h>
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"tnm061.hpp"
+
+1487855498 source:h:\documents\graphics\lab5\trianglesoup.cpp
+	<cstdio>
+	<cstdlib>
+	<cmath>
+	<cstring>
+	"TriangleSoup.hpp"
+

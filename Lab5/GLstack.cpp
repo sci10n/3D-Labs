@@ -237,6 +237,7 @@ int main(int argc, char *argv[]) {
             MVstack.pop(); // Restore the matrix we saved above
 
             // Earth
+
             MVstack.rotY(0.2f*time); // Earth orbit rotation
             MVstack.translate(1.5f, 0.0f, 0.0f); // Earth orbit radius
             MVstack.push(); // Save the matrix before the Earth's rotation
@@ -252,18 +253,40 @@ int main(int argc, char *argv[]) {
 
             MVstack.pop(); // Restore the matrix we saved above
             // Moon
-            MVstack.rotY(1.5f*time); // Moon orbit rotation
-            MVstack.translate(0.5f, 0.0f, 0.0f); // Moon orbit radius
+            float moon_distance_earth = 0.5f;
+            float moon_radius = 0.1f;
+            float moon_orbit_circumference = moon_distance_earth * 2 * M_PI;
+            float moon_circumference = moon_radius * 2 * M_PI;
+            float moon_rotation_speed = 0.5f; //moon_circumference;
+            float moon_orbit_speed = moon_orbit_circumference / (moon_circumference / moon_rotation_speed);
             MVstack.push();
-                MVstack.rotY(0.04*time); // Moon's rotation around its axis
+            MVstack.rotY(moon_orbit_speed*time); // Moon orbit rotation
+            MVstack.translate(moon_distance_earth, 0.0f, 0.0f); // Moon orbit radius
+            MVstack.push();
+                MVstack.rotY(moon_rotation_speed*time); // Moon's rotation around its axis
                 MVstack.rotX(-M_PI/2); // Orient the poles along Y axis instead of Z
-                MVstack.scale(0.1f); // Scale unit sphere to radius 0.1
+                MVstack.scale(moon_radius); // Scale unit sphere to radius 0.1
                 // Update the transformation matrix in the shader
                 glUniformMatrix4fv( location_MV, 1, GL_FALSE, MVstack.getCurrentMatrix() );
                 // Render the geometry to draw the moon
                 glBindTexture(GL_TEXTURE_2D, moonTexture.texID);
                 earthSphere.render();
             MVstack.pop();
+         MVstack.pop();
+        MVstack.push();
+            MVstack.rotY((moon_orbit_speed*0.60 *time) + 10); // Moon orbit rotation
+            MVstack.translate(moon_distance_earth*0.75, 0.0f, 0.0f); // Moon orbit radius
+            MVstack.push();
+                MVstack.rotY(moon_rotation_speed*time); // Moon's rotation around its axis
+                MVstack.rotX(-M_PI/2); // Orient the poles along Y axis instead of Z
+                MVstack.scale(moon_radius); // Scale unit sphere to radius 0.1
+                // Update the transformation matrix in the shader
+                glUniformMatrix4fv( location_MV, 1, GL_FALSE, MVstack.getCurrentMatrix() );
+                // Render the geometry to draw the moon
+                glBindTexture(GL_TEXTURE_2D, moonTexture.texID);
+                earthSphere.render();
+            MVstack.pop();
+         MVstack.pop();
         MVstack.pop(); // Restore the initial, untouched matrix
 
 		// Play nice and deactivate the shader program
