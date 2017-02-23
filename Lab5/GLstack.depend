@@ -1,0 +1,78 @@
+# depslib dependency file v1.0
+1455698725 source:c:\users\sciion\downloads\lab5-2016-cpp\matrixstack.cpp
+	"MatrixStack.hpp"
+
+1455698724 c:\users\sciion\downloads\lab5-2016-cpp\matrixstack.hpp
+	<cmath>
+	<cstdlib>
+	<cstdio>
+	<GLFW/glfw3.h>
+
+1455698725 c:\users\sciion\downloads\lab5-2016-cpp\glfw\glfw3.h
+	<stddef.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/glcorearb.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<GLES3/gl3.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1455698725 source:c:\users\sciion\downloads\lab5-2016-cpp\rotator.cpp
+	"Rotator.hpp"
+
+1455698724 c:\users\sciion\downloads\lab5-2016-cpp\rotator.hpp
+	<GLFW/glfw3.h>
+	<cmath>
+
+1455698725 source:c:\users\sciion\downloads\lab5-2016-cpp\shader.cpp
+	"Shader.hpp"
+
+1455698725 c:\users\sciion\downloads\lab5-2016-cpp\shader.hpp
+	<GLFW/glfw3.h>
+	"tnm061.hpp"
+	<cstdio>
+
+1455698725 c:\users\sciion\downloads\lab5-2016-cpp\tnm061.hpp
+	<GL/glext.h>
+
+1455698725 c:\users\sciion\downloads\lab5-2016-cpp\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1455698724 source:c:\users\sciion\downloads\lab5-2016-cpp\texture.cpp
+	"Texture.hpp"
+
+1456305257 c:\users\sciion\downloads\lab5-2016-cpp\texture.hpp
+	<GLFW/glfw3.h>
+	<cstdio>
+	<cstring>
+	<GL/glext.h>
+	"tnm061.hpp"
+
+1456231076 source:c:\users\sciion\downloads\lab5-2016-cpp\tnm061.cpp
+	<stdio.h>
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"tnm061.hpp"
+
+1455698725 source:c:\users\sciion\downloads\lab5-2016-cpp\trianglesoup.cpp
+	<cstdio>
+	<cstdlib>
+	<cmath>
+	<cstring>
+	"TriangleSoup.hpp"
+
+1455698725 c:\users\sciion\downloads\lab5-2016-cpp\trianglesoup.hpp
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+	"tnm061.hpp"
+
